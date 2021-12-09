@@ -258,3 +258,4 @@
   console.log(krAge); // console.log 했을 때 98로 출력
   ```
   - console에 출력하려고 function을 쓰지 않음
+  - 한 번 return 하면 function은 작동을 멈추고 결과 값을 return하고 끝남
