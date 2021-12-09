@@ -16,6 +16,11 @@
 
     myName = "kimseokyung"; //업데이트 가능
     ```
+<br>
+
+---
+
+<br>
 
 - boolean
   - `true` | `false`
@@ -35,3 +40,199 @@
     let somthing; //variable을 만들고는 있는데 여기에 값을 주지 않음
     console.log(something); //something이라는 variable을 만들고 있지만 값을 주지 않음
     ```
+
+<br>
+
+---
+
+<br>
+
+## 데이터를 정리하는 방법
+> 어떻게 하면 가능한 최선의 방법으로 정리할 수 있을까에 관한 것
+
+<br>
+
+### Array
+
+- array 시작과 끝에 [ ]로 작성, 쉼표로 구분
+- array를 사용하지 않을 경우
+  ```javascript
+  const mon = "mon";
+  const tue = "tue";
+  const wed = "wed";
+  const thu = "thu";
+  const fri = "fri";
+  const sat = "sat";
+  const sun = "sun";
+  ```
+- array를 사용 할 경우
+  ```javascript
+  const daysOfWeek = ["mon", "tue", "wed", "thu", "fri", "sat"];
+  const nonsense = [1, 2, "hello", false, true, null, undefined, "seokyung"];
+
+  console.log(daysOfWeek, nonsense);
+
+  // Get Item from Array
+  console.log(daysOfWeek[5]); // dayOfWeek의 다섯번째 element를 알려주세요
+
+    
+  // Add one more day to the array
+  daysOfWeek.push("sun");
+
+  console.log(daysOfWeek);
+  ```
+- 컴퓨터는 1부터 세지 않고 0부터 센다.
+
+  따라서 `dayOfWeek[5]`는 `sat`의 결과를 가짐.
+- array의 기능
+  1. array 안에서 항목을 받아오는 것
+  2. array에 하나 더 추가하는 것 
+  
+<br>
+
+---
+
+<br>
+
+### Object
+
+- 게임을 만들고 있다고 상상할 때
+  ```javascript
+  const playerName = "seokyung";
+  const playerPoints = 121212;
+  const playerHandsome = false;
+  const playerFat = "little bit";
+
+  player.name
+  player.points
+  player.handsome // 이렇게 작성하는것이 훨씬 좋음
+  ```
+  `playerName`, `playerPoints`, `playerHandsome`, `playerFat`
+  
+  이 property들이 한 개의 개체(entity), 즉 player에 대해서 설명하고 있다는 것을 알고있다.
+
+- 이 array는 1212, false, "little bit" 이 무슨 의미인지 알려주고 있지 않다.
+  
+  // 주석으로 player[0] == name, player[1] == points 이렇게 작성할 수 있지만 좋지 않다.
+  ```javascript
+  const player = ["seokyung", 121212, false, "little bit"];
+  ```
+- object 안에서는 = (equal) 을 사용하지 않고, :(colon)을 사용한다.
+- 한 개의 property를 작성한 후 ,(comma) 를 사용해서 추가로 작성한다.
+
+  ```javascript
+  // object 활용
+  const player = {
+    name: "seokyung",
+    points: 10,
+    fat: true,
+  };
+  console.log(player);
+  console.log(player.name);
+  console.log(player["name"]);
+  ```
+- object update
+  ```javascript
+  console.log(player);
+  player.fat = false;
+  console.log(player);
+  // play.fat의 값이 false로 업데이트 됨
+  
+  player = false;
+  // 이 경우에 에러 발생
+
+  playet.lastName = "potato";
+  // 원하는 어떤 property든 추가 할 수 있음
+
+  player.points = player.points + 15;
+  // 10 + 15 → 25로 업데이트 됨
+  ```
+  - const 값은 수정할 수 없지만 위의 결과는 object 안의 값을 수정하는 것이기 때문에 가능하다.
+  - const 전체를 하나의 값으로서 업데이트 하려고 할 때 에러가 발생한다.
+
+  <br>
+
+  ---
+
+  <br>
+
+### Function
+
+- 겹치는 내용의 코드를 계속해서 복사 붙여넣기 하지 않기 위해 사용
+- function을 사용하지 않았을 때
+  ```javascript
+  console.log("Hello my name is Seokyung");
+  console.log("Hello my name is Nico");
+  console.log("Hello my name is Flynn");
+  console.log("Hello my name is Flynn");
+  console.log("Hello my name is Dal");
+  ```
+- function을 사용할 때
+  ```javascript
+  function sayHello() {
+    console.log("Hello!");
+  }
+  // {}안에 작성하는 것이 sayHello를 실행할 때마다 실행
+
+  sayHello();
+  sayHello();
+  sayHello();
+  sayHello();
+  //중괄호 안에 있는 코드가 실행을 누를 때마다 실행됨
+  ```
+- 인수(argument)를 보냄
+  - function을 실행하는 동안 어떤 정보를 function에게 보낼 수 있는 방법
+  ```javascript
+  function sayHello() {
+    console.log("Hello! My name is ");
+  }
+
+  sayHello("nico"); // Hello! My name is nico
+  console.log(); // 괄호 안에 아무것도 작성하지 않았기 때문에 아무것도 실행되지 않음
+  console.log("nico!");
+  ```
+- function으로 입력하고 출력
+  ```javascript
+  function sayHello(nameOfPerson, age) {
+    console.log(nameOfPerson);
+    console.log("Hello my name is " + nameOfPerson + " and I'm " + age "years old");
+  }
+
+  sayHello("nico", 10);
+  sayHello("dal", 23);
+  sayHello("lynn", 21);
+
+  // 출력 값: nico dal lynn
+  // 출력 값: Hello my name is nico and I'm 10 years old ・・・ dal 23, lynn 21 
+  ```
+- +계산기 만들기
+  ```javascript
+  function plus(a, b) { // 아무 이름이나 상관없음
+    console.log(a, b);
+    console.log(a + b);
+  }
+
+  plus(); //출력 값: undefined
+  plus(); //출력 값: NaN (Not a Number)
+  plus(8, 60); //출력 값: 68
+  ```
+- /계산기 만들기
+  ```javascript
+  function divide(a, b) {
+    console.log(a / b);
+  }
+
+  divide(4, 2); //출력 값: 2
+  ```
+- object안에 function 입력
+  ```javascript
+  const player = {
+    name: "nico",
+    sayHello: function(otherPersonsName) {
+      console.log("Hello! " + otherPersonsName + " nice to meet you");
+    },
+  }
+
+  console.log(player.name); //출력 값: nico
+  player.sayHello(lynn); //출력 값: Hello! lynn nice to meet you
+  ```
