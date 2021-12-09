@@ -236,3 +236,25 @@
   console.log(player.name); //출력 값: nico
   player.sayHello(lynn); //출력 값: Hello! lynn nice to meet you
   ```
+
+  <br>
+
+  ---
+
+  <br>
+
+### Return
+
+- 어떤 작업을 처리하고 그 결과를 return하기 위해 function을 사용
+  ```javascript
+  const age = 96; // 2. 96이라는 argument가 1번의 age 자리로 대체
+
+  function calculateKrAge(ageOfForeinger){ // 3. 1번의 자리로 대체된 2번의 96이 ageOfForeinger로 대체
+      return ageOfForeinger + 2; // 4. 3번에서 대체된 96이 ageOfForeinger로 대체 → 96 + 2
+  }
+
+  const krAge = calculateKrAge(age); // 1. calculateKrAge 실행 // 5. calculateKrAge(age)가 98로 대체
+
+  console.log(krAge); // console.log 했을 때 98로 출력
+  ```
+  - console에 출력하려고 function을 쓰지 않음
