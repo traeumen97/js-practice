@@ -117,12 +117,3 @@
   ```
   - CSS Selector를 사용하여 하나의 element만을 return할 수 있다.
   - id 값 selector으로도 사용할 수 있다.
-
-<br>
-
----
-
-<br>
-
-### Events
-
