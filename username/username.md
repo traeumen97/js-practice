@@ -199,33 +199,55 @@
     const HIDDEN_CLASSNAME = "hidden";
     const USERNAME_KEY = "username";
     
-    function onLoginSubmit(event) {
-        event.preventDefault();
-        loginForm.classList.add(HIDDEN_CLASSNAME);
-        const username = loginInput.value;
-        localStorage.setItem("USERNAME_KEY", username); // 1. 저장될 아이템의 이름이고 값은 username 변수
-        greeting.innerText = "Hello " + username;
+    function onLoginSubmit(event) { // 3
+        event.preventDefault(); // 4
+        loginForm.classList.add(HIDDEN_CLASSNAME); // 5
+        const username = loginInput.value; // 6
+        localStorage.setItem("USERNAME_KEY", username); // 7 저장될 아이템의 이름이고 값은 username 변수
         
-        paintGreetings(username);
+        paintGreetings(username); // 8
     }
 
     function paintGreetings(username) {
-        greeting.innerText = `Hello ${username}`;
-        greeting.classList.remove(HIDDEN_CLASSNAME);
+        greeting.innerText = `Hello ${username}`; // 9
+        greeting.classList.remove(HIDDEN_CLASSNAME); // 10
     }
-
-    loginForm.addEventListener("submit", onLoginSubmit);
 
     const savedUsername = localStorage.getItem("USERNAME_KEY");
 
-    if(savedUername === null) { // 3
+    if(savedUsername === null) { // 1
         //show the form
-        loginForm.classlList.remove(HIDDEN_CLASSNAME); // 2
-        loginForm.addEventListner("submit", onLoginSubmit); // 4
+        loginForm.classlList.remove(HIDDEN_CLASSNAME);
+        loginForm.addEventListner("submit", onLoginSubmit); // 2
     } else {
         //show the greetings
         paintGreetings(savedUsername);
     }
 
     ```
+- 2개의 html 요소가 있음 1. form 2. h1
+- form안에는 input이 있고 h1은 비어있음 → hidden이라는 class를 지니고 있다는 공통점이 있음
+- hidden 클래스의 역할은 display:none 요소를 숨기는 것 → 자바스크리트를 불러오기 전부터 이 두 요소는 숨겨져 있음
+- 자바스크립트가 들어와서 제일 먼저 local storage를 확인
+- locasl storage가 정보를 저장하고 불러오고 삭제하는 브라우저가 가지고 있는 작은 DB 같은 API
+- local storage 에 없는 정보를 불러오려고 하면 null값을 받음
+- username처럼 local storage에 존재하는 정보를 불러오려고 한다면 그 key에 해당하는 value를 받게 됨
+- local storage를 살펴보면 key / value 가 있음
+- 존재하는 정보에 대한 key를 검색하면 그 value를 string으로 받게 됨
+- savedUsername이 null 또는 nico라는 것을 알게 됨
 
+<br>
+
+1. `savedUsername` 이 `null`일 때 : 1번의 조건은 참이 됨
+   - `loginForm`으로부터 `HIDDEN_CLASSNAME을` 제거 (html)
+   - `HIDDEN_CLASSNAME`으로 form이 표시 됨
+2. `loginForm`에 `addEventListener`를 더하고 `submit`을 기다림
+   - submit event가 발생하면 onLoginSubmit 함수가 실행
+3. `function onLoginSubmit(event)`
+4. event가 원래 하는 행동을 멈춤: 기본동작(페이지 새로고침) 동작을 막아줌
+5. form을 다시 숨겨줌
+6. loginInput.value를 username이라는 변수로 저장
+7. username 값을 username이라는 key와 함께 local storage에 저장
+8. paintGreeting 함수 호출 : form안에 있는 input에 입력한 유저명을 받음
+9. username이라는 인자를 하나 받고 있고 비어있는 h1요소 안에 Hello + username 이라는 텍스트를 추가
+10. h1 요소로부터 hidden이라는 클래스명을 제거
