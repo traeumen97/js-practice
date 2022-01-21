@@ -15,11 +15,12 @@ form .input-field {
   border: none;
   outline: none;
   border-radius: 2rem;
-  background: #f1f5f9;
+  background: #e4e9ec;
 }
 
 form .input-submit {
   font-size: 1rem;
+  color: #FFF;
   line-height: inherit;
   cursor: pointer;
   min-width: 90px;
@@ -28,6 +29,7 @@ form .input-submit {
   border: none;
   outline: none;
   border-radius: 2rem;
+  background: #448e53;
 }
 
 form select {
