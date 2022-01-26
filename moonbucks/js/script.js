@@ -6,20 +6,13 @@ function App() {
     e.preventDefault();
   });
 
-  $("#espresso-menu-submit-button").addEventListener("click", () => )
-
-  //메뉴의 이름일 입력받는 건
-  $("#espresso-menu-name").addEventListener("keypress", (e) => {
-    if (e.key !== "Enter") {
-      return;
-    }
+  const addMenuName = () => {
     if ($("#espresso-menu-name").value === "") {
       alert("값을 입력해주세요.");
       return;
     }
-    if (e.key === "Enter") {
-      const $espressoMenuName = $("#espresso-menu-name").value;
-      const menuItemTemplate = ($espressoMenuName) => {
+    const $espressoMenuName = $("#espresso-menu-name").value;
+    const menuItemTemplate = ($espressoMenuName) => {
       return `
       <li class="menu-list-item d-flex items-center py-2">
       <span class="w-100 pl-2 menu-name">${$espressoMenuName}</span>
@@ -38,7 +31,7 @@ function App() {
         </button>
       </div>
       </li> `;
-      };
+    };
       $("#espresso-menu-list").insertAdjacentHTML(
         "beforeend",
         menuItemTemplate($espressoMenuName)
@@ -47,7 +40,18 @@ function App() {
       const memuCount = $("#espresso-menu-list").querySelectorAll("li").length;
       $(".menu-count").innerText = `총 ${memuCount} 개`;
       $("#espresso-menu-name").value = "";
+  }
+
+  $("#espresso-menu-submit-button").addEventListener("click", () => {
+    addMenuName();
+  });
+
+  //메뉴의 이름일 입력받는 건
+  $("#espresso-menu-name").addEventListener("keypress", (e) => {
+    if (e.key !== "Enter") {
+      return;
     }
+    addMenuName();
   });
 }
 
