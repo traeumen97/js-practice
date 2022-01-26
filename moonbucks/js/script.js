@@ -6,6 +6,8 @@ function App() {
     e.preventDefault();
   });
 
+  $("#espresso-menu-submit-button").addEventListener("click", () => )
+
   //메뉴의 이름일 입력받는 건
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
     if (e.key !== "Enter") {
