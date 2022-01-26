@@ -5,13 +5,19 @@ const store = {
     localStorage.setItem("menu", JSON.stringify(menu));
   },
   getLocalStorage() {
-    localStorage.getItem("menu");
-  }
-}
+    return localStorage.getItem("menu");
+  },
+};
 
 function App() {
   //상태는 변하는 데이터, 이 앱에서 변하는 것 - 메뉴명 (꼭 관리해야하는 데이터)
   this.menu = [];
+  this.init = () => {
+    if(store.getLocalStorage().length > 1) {
+      this.menu = store.getLocalStorage();
+      console.log(this.menu);
+    }
+  };
   //총 메뉴 갯수 카운트
   const updateMenuCount = () => {
     const memuCount = $("#espresso-menu-list").querySelectorAll("li").length;
@@ -100,4 +106,5 @@ function App() {
   });
 }
 
-App();
+const app = new App();
+app.init();
