@@ -1,13 +1,26 @@
 const $ = (selector) => document.querySelector(selector);
 
 function App() {
+  //총 메뉴 갯수 카운트
+  const updateMenuCount = () => {
+    const memuCount = $("#espresso-menu-list").querySelectorAll("li").length;
+    $(".menu-count").innerText = `총 ${memuCount} 개`;
+  };
+  //메뉴 수정 버튼
   $("#espresso-menu-list").addEventListener("click", (e) => {
     if(e.target.classList.contains("menu-edit-button")) {
       const $menuName = e.target.closest("li").querySelector(".menu-name");
       const updatedMenuName = prompt("메뉴명을 수정하세요.", $menuName.innerText);
       $menuName.innerText = updatedMenuName;
     }
-  });
+    //메뉴 삭제 버튼
+    if(e.target.classList.contains("menu-remove-button")) {
+      if(confirm("정말 삭제하시겠습니까?")) {
+        e.target.closest("li").remove();
+        updateMenuCount();
+      }
+    }
+  });    
 
   //form태그가 자동으로 전송되는걸 막아줌
   $("#espresso-menu-form").addEventListener("submit", (e) => {
@@ -45,8 +58,7 @@ function App() {
         menuItemTemplate($espressoMenuName)
       );
       // const li 갯수를 카운팅
-      const memuCount = $("#espresso-menu-list").querySelectorAll("li").length;
-      $(".menu-count").innerText = `총 ${memuCount} 개`;
+      updateMenuCount();
       $("#espresso-menu-name").value = "";
   }
 
