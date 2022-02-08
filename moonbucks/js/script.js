@@ -65,8 +65,8 @@ function App() {
       alert("값을 입력해주세요.");
       return;
     }
-    const espressoMenuName = $("#menu-name").value;
-    this.menu[this.currentCategory].push({ name: espressoMenuName });
+    const MenuName = $("#menu-name").value;
+    this.menu[this.currentCategory].push({ name: MenuName });
     store.setLocalStorage(this.menu);
     render();
     $("#menu-name").value = "";
