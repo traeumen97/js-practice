@@ -13,7 +13,7 @@ function App() {
   //상태는 변하는 데이터, 이 앱에서 변하는 것 - 메뉴명 (꼭 관리해야하는 데이터)
   this.menu = {
     espresso: [],
-    frappucino: [],
+    frappuccino: [],
     blended: [],
     teavana: [],
     desert: [],
