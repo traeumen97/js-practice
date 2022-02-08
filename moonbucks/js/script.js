@@ -1,11 +1,11 @@
 const $ = (selector) => document.querySelector(selector);
 
 const store = {
-  setLocalStorage() {
+  setLocalStorage(menu) {
     localStorage.setItem("menu", JSON.stringify(menu));
   },
   getLocalStorage() {
-    return localStorage.getItem("menu");
+    return JSON.parse(localStorage.getItem("menu"));
   },
 };
 
@@ -13,25 +13,13 @@ function App() {
   //상태는 변하는 데이터, 이 앱에서 변하는 것 - 메뉴명 (꼭 관리해야하는 데이터)
   this.menu = [];
   this.init = () => {
-    if(store.getLocalStorage().length > 1) {
+    if (store.getLocalStorage().length > 1) {
       this.menu = store.getLocalStorage();
-      console.log(this.menu);
     }
-  };
-  //총 메뉴 갯수 카운트
-  const updateMenuCount = () => {
-    const memuCount = $("#espresso-menu-list").querySelectorAll("li").length;
-    $(".menu-count").innerText = `총 ${memuCount} 개`;
+    render();
   };
 
-  const addMenuName = () => {
-    if ($("#espresso-menu-name").value === "") {
-      alert("값을 입력해주세요.");
-      return;
-    }
-    const espressoMenuName = $("#espresso-menu-name").value;
-    this.menu.push({ name: espressoMenuName });
-    store.setLocalStorage(this.menu);
+  const render = () => {
     const template = this.menu.map((menuItem, index) => {
       return `
       <li data-menu-id="${index}" class="menu-list-item d-flex items-center py-2">
@@ -52,11 +40,28 @@ function App() {
       </div>
       </li> `;
     }).join("");
-    
-      $("#espresso-menu-list").innerHTML = template;
-      // const li 갯수를 카운팅
-      updateMenuCount();
-      $("#espresso-menu-name").value = "";
+      
+        $("#espresso-menu-list").innerHTML = template;
+        // const li 갯수를 카운팅
+        updateMenuCount();
+  };
+
+  //총 메뉴 갯수 카운트
+  const updateMenuCount = () => {
+    const memuCount = $("#espresso-menu-list").querySelectorAll("li").length;
+    $(".menu-count").innerText = `총 ${memuCount} 개`;
+  };
+
+  const addMenuName = () => {
+    if ($("#espresso-menu-name").value === "") {
+      alert("값을 입력해주세요.");
+      return;
+    }
+    const espressoMenuName = $("#espresso-menu-name").value;
+    this.menu.push({ name: espressoMenuName });
+    store.setLocalStorage(this.menu);
+    render();
+    $("#espresso-menu-name").value = "";
   };
 
   const updateMenuName = (e) => {
