@@ -25,6 +25,7 @@ function App() {
       this.menu = store.getLocalStorage();
     }
     render();
+    initEventListeners();
   };
 
   const render = () => {
@@ -62,8 +63,8 @@ function App() {
 
   //총 메뉴 갯수 카운트
   const updateMenuCount = () => {
-    const memuCount = $("#menu-list").querySelectorAll("li").length;
-    $(".menu-count").innerText = `총 ${memuCount} 개`;
+    const menuCount = this.menu[this.currentCategory].length;
+    $(".menu-count").innerText = `총 ${menuCount} 개`;
   };
 
   const addMenuName = () => {
@@ -84,7 +85,7 @@ function App() {
     const updatedMenuName = prompt("메뉴명을 수정하세요.", $menuName.innerText);
     this.menu[this.currentCategory][menuId].name = updatedMenuName;
     store.setLocalStorage(this.menu);
-    $menuName.innerText = updatedMenuName;
+    render();
   };
 
   const removeMenuName = (e) => {
@@ -92,8 +93,7 @@ function App() {
       const menuId = e.target.closest("li").dataset.menuId;
       this.menu[this.currentCategory].splice(menuId, 1);
       store.setLocalStorage(this.menu);
-      e.target.closest("li").remove();
-      updateMenuCount();
+      render();
     }
   };
   
@@ -104,49 +104,54 @@ function App() {
     render();
   };
 
-  //메뉴 수정 버튼
-  $("#menu-list").addEventListener("click", (e) => {
-    if(e.target.classList.contains("menu-edit-button")) {
-      updateMenuName(e);
-      return;
-    }
-    //메뉴 삭제 버튼
-    if(e.target.classList.contains("menu-remove-button")) {
-      removeMenuName(e);
-      return;
-    }
-    
-    if (e.target.classList.contains("menu-sold-out-button")) {
-      soldOutMenu(e);
-      return;
-    }
-  });    
+  const initEventListeners = () => {
+    $("#menu-list").addEventListener("click", (e) => {
+      if(e.target.classList.contains("menu-edit-button")) {
+        updateMenuName(e);
+        return;
+      }
+      //메뉴 삭제 버튼
+      if(e.target.classList.contains("menu-remove-button")) {
+        removeMenuName(e);
+        return;
+      }
+      
+      //메뉴 품절 버튼
+      if (e.target.classList.contains("menu-sold-out-button")) {
+        soldOutMenu(e);
+        return;
+      }
+    });    
+  
+    //form태그가 자동으로 전송되는걸 막아줌
+    $("#menu-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+  
+    // $("#menu-submit-button").addEventListener("click", () => {addMenuName();});
+    $("#menu-submit-button").addEventListener("click", addMenuName);
+  
+    //메뉴의 이름일 입력받는 건
+    $("#menu-name").addEventListener("keypress", (e) => {
+      if (e.key !== "Enter") {
+        return;
+      }
+      addMenuName();
+    });
+  
+    $("nav").addEventListener("click", (e) => {
+      const isCategoryButton = e.target.classList.contains("cafe-category-name");
+      if (isCategoryButton) {
+        const categoryName = e.target.dataset.categoryName;
+        this.currentCategory = categoryName;
+        $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
+        render();
+      }
+    });
+  };
 
-  //form태그가 자동으로 전송되는걸 막아줌
-  $("#menu-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-  });
+    //메뉴 수정 버튼
 
-  // $("#menu-submit-button").addEventListener("click", () => {addMenuName();});
-  $("#menu-submit-button").addEventListener("click", addMenuName);
-
-  //메뉴의 이름일 입력받는 건
-  $("#menu-name").addEventListener("keypress", (e) => {
-    if (e.key !== "Enter") {
-      return;
-    }
-    addMenuName();
-  });
-
-  $("nav").addEventListener("click", (e) => {
-    const isCategoryButton = e.target.classList.contains("cafe-category-name");
-    if (isCategoryButton) {
-      const categoryName = e.target.dataset.categoryName;
-      this.currentCategory = categoryName;
-      $("#category-title").innerText = `${e.target.innerText} 메뉴 관리`;
-      render();
-    }
-  });
 }
 
 const app = new App();
